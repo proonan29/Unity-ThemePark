@@ -1,0 +1,193 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace ThemePark.UI
+{
+    /// <summary>Tiny localisation table: English text is the key, Korean is looked up.</summary>
+    public static class Loc
+    {
+        const string PrefKey = "tp_lang";
+        static bool? korean;
+        public static event System.Action Changed;
+
+        public static bool Korean
+        {
+            get { if (korean == null) korean = PlayerPrefs.GetInt(PrefKey, 1) == 1; return korean.Value; }
+            set { korean = value; PlayerPrefs.SetInt(PrefKey, value ? 1 : 0); PlayerPrefs.Save(); Changed?.Invoke(); }
+        }
+
+        static readonly Dictionary<string, string> Ko = new Dictionary<string, string>
+        {
+            // park
+            ["Sunny Hills Park"] = "써니힐스 파크",
+            ["Main Gate"] = "정문",
+            ["Thunder Coaster"] = "썬더 코스터",
+            ["Sky Drop"] = "스카이 드롭",
+            ["Star Swing"] = "스타 스윙",
+            ["Thrill Snacks"] = "스릴 스낵",
+            ["Thrill Garden"] = "스릴 가든",
+            ["Log Flume"] = "통나무 급류타기",
+            ["Pirate Ship"] = "해적선",
+            ["Haunted Mansion"] = "유령의 집",
+            ["Adventure Camp"] = "어드벤처 캠프",
+            ["Grand Wheel"] = "대관람차",
+            ["Carousel"] = "회전목마",
+            ["Teacups"] = "찻잔 회전",
+            ["Fantasy Cafe"] = "판타지 카페",
+            ["Mini Coaster"] = "미니 코스터",
+            ["Kiddie Train"] = "꼬마 기차",
+            ["Bumper Cars"] = "범퍼카",
+            ["Food Court"] = "푸드코트",
+            ["Central Plaza"] = "중앙 광장",
+            ["Main Street"] = "메인 스트리트",
+            ["Adventure Land"] = "어드벤처 랜드",
+            ["Thrill Zone"] = "스릴 존",
+            ["Fantasy Land"] = "판타지 랜드",
+            ["Kids Land"] = "키즈 랜드",
+            ["Arena & Food"] = "아레나 & 푸드",
+            ["Hub"] = "허브",
+            ["Main St."] = "메인",
+            ["E"] = "동", ["NE"] = "북동", ["N"] = "북", ["NW"] = "북서", ["W"] = "서", ["SW"] = "남서", ["S"] = "남", ["SE"] = "남동",
+            ["Path to {0}"] = "{0} 진입로",
+
+            // left panel
+            ["Theme park flow & congestion simulator"] = "테마파크 동선·혼잡 시뮬레이터",
+            ["Guest view"] = "방문객 화면",
+            ["Control room"] = "관제 화면",
+            ["Simulation"] = "시뮬레이션",
+            ["Start"] = "시작",
+            ["Pause"] = "일시정지",
+            ["+1 hour"] = "+1시간",
+            ["Reset"] = "초기화",
+            ["Visitors / day"] = "일 방문객",
+            ["Guide app users"] = "안내 앱 사용",
+            ["Applies when you press Reset."] = "초기화를 누르면 적용됩니다.",
+            ["Speed {0}x  (1 s = {1})"] = "속도 {0}배  (1초 = {1})",
+            ["Open"] = "운영 중",
+            ["Closing – visitors leaving"] = "폐장 – 퇴장 중",
+            ["Closed"] = "폐장",
+            ["{0} in park"] = "파크 내 {0}명",
+            ["Entered {0} / {1} · queueing {2} · riding {3}"] = "입장 {0} / {1}명 · 대기 {2} · 탑승 {3}",
+            ["Avg wait {0} · avg walk {1}"] = "평균 대기 {0} · 평균 이동 {1}",
+            ["{0} visitors/day · {1}% use the guide app · step {2} ms"] = "일 방문객 {0}명 · 안내 앱 {1}% · 계산 {2} ms",
+            ["Route guide"] = "경로 안내",
+            ["Main gate"] = "정문",
+            ["Random visitor"] = "임의 방문객",
+            ["Follow"] = "따라가기",
+            ["Clear"] = "지우기",
+            ["— choose a destination —"] = "— 목적지 선택 —",
+            ["Click the map to set a start point, click a ride to set the destination, click a visitor to guide that visitor."] =
+                "지도를 클릭하면 출발점, 놀이기구를 클릭하면 목적지가 됩니다. 방문객을 클릭하면 그 방문객 위치에서 안내합니다.",
+            ["Start"] = "시작",
+            ["Visitor #{0}"] = "방문객 #{0}",
+            ["{0} rides, {1} walked"] = "탑승 {0}회, 이동 {1}",
+            ["Map point"] = "지도 지점",
+            ["Choose a destination to see the route."] = "목적지를 고르면 경로가 표시됩니다.",
+            ["No route found."] = "경로를 찾지 못했습니다.",
+            ["posted wait"] = "현재 대기",
+            ["{0}/h"] = "시간당 {0}명",
+            ["Route (shortest = fastest)"] = "경로 (최단 = 최소 시간)",
+            ["Fastest"] = "최소 시간",
+            ["Shortest"] = "최단 거리",
+            ["walk"] = "이동",
+            ["wait"] = "대기",
+            ["total"] = "총",
+            ["board at"] = "탑승",
+            ["leaving"] = "퇴장 중",
+            ["strolling"] = "산책",
+            ["walking"] = "이동 중",
+            ["queue"] = "줄 서는 중",
+            ["riding"] = "탑승 중",
+            ["eating"] = "식사 중",
+            ["resting"] = "휴식 중",
+            ["Display"] = "표시",
+            ["Visitor colour"] = "방문객 색",
+            ["State"] = "상태",
+            ["Group"] = "유형",
+            ["App user"] = "앱 사용",
+            ["Heat map"] = "히트맵",
+            ["Off"] = "끔",
+            ["Live density"] = "실시간 밀도",
+            ["Cumulative"] = "누적",
+            ["Walkways"] = "보행로",
+            ["Level of service"] = "서비스 수준",
+            ["Flow / h"] = "시간당 통행량",
+            ["Ride labels"] = "이름표",
+            ["Overview"] = "전체 보기",
+            ["Left drag: rotate · Right drag: pan · Wheel: zoom"] = "왼쪽 드래그: 회전 · 오른쪽 드래그: 이동 · 휠: 확대/축소",
+            ["Language"] = "언어",
+            ["Family"] = "가족",
+            ["Teen"] = "청소년",
+            ["Adult"] = "성인",
+            ["Uses guide app"] = "안내 앱 사용",
+            ["No app"] = "앱 미사용",
+            ["Walking"] = "이동",
+            ["Queueing"] = "대기",
+            ["Eating"] = "식사",
+            ["Resting"] = "휴식",
+            ["Leaving"] = "퇴장",
+            ["Browsing"] = "구경",
+            ["browsing"] = "구경 중",
+            ["Selected"] = "선택",
+            ["Riding"] = "탑승",
+            ["In park"] = "파크 내",
+            ["{0} s"] = "{0}초",
+            ["{0} min"] = "{0}분",
+            ["{0} h {1} min"] = "{0}시간 {1}분",
+            ["min"] = "분",
+
+            // dashboard
+            ["Movement data collected from every visitor, updated live."] = "모든 방문객의 이동 데이터를 실시간으로 집계합니다.",
+            ["In park now"] = "현재 인원",
+            ["Entered today"] = "오늘 입장",
+            ["Peak in park"] = "최대 동시 인원",
+            ["Avg ride wait"] = "평균 대기",
+            ["Avg distance walked"] = "평균 이동거리",
+            ["Rides taken"] = "총 탑승",
+            ["walking {0} · queue {1}"] = "이동 {0} · 대기 {1}",
+            ["left {0}"] = "퇴장 {0}",
+            ["at {0}"] = "{0}",
+            ["{0} boarded"] = "탑승 {0}회",
+            ["leavers {0}"] = "퇴장객 {0}",
+            ["{0} per visitor"] = "1인 {0}회",
+            ["Visitors over time"] = "시간대별 인원",
+            ["Rides: usage and waiting"] = "놀이기구별 이용량과 대기",
+            ["Ride"] = "놀이기구",
+            ["Queue"] = "대기열",
+            ["Wait now"] = "현재 대기",
+            ["Riders"] = "이용객",
+            ["Use %"] = "가동률",
+            ["Avg wait"] = "평균 대기",
+            ["Queue length (top 5 rides)"] = "대기열 길이 (상위 5개)",
+            ["Congestion hot spots (live, 6 x 6 m)"] = "혼잡 지점 (실시간, 6 x 6 m)",
+            ["Zones"] = "구역",
+            ["Zone"] = "구역",
+            ["People"] = "인원",
+            ["p/m²"] = "명/m²",
+            ["LOS"] = "LOS",
+            ["Peak"] = "최대",
+            ["No crowding right now."] = "현재 혼잡한 곳이 없습니다.",
+            ["{0} people"] = "{0}명",
+            ["Busiest walkways (flow per hour)"] = "통행량 많은 보행로 (시간당)",
+            ["Distance walked per visitor"] = "방문객별 이동거리 분포 (km)",
+            ["Guide accuracy (predicted vs actual)"] = "안내 정확도 (예측 vs 실제)",
+            ["Waiting for the first completed trips..."] = "완료된 이동이 생기면 표시됩니다...",
+            ["{0} trips to rides (departure → boarding)."] = "놀이기구 이동 {0}건 (출발 → 탑승).",
+            ["Walking time error: {0} (bias {1})"] = "이동시간 오차: {0} (편향 {1})",
+            ["Wait error: posted wait {0} → forecast {1}"] = "대기시간 오차: 현재 대기 기준 {0} → 예측 {1}",
+            ["Total time error (forecast): {0} ({1}%)"] = "총 소요시간 오차(예측): {0} ({1}%)",
+            ["Ride waits: app users {0} · others {1}"] = "실제 대기: 앱 사용자 {0} · 미사용자 {1}",
+            ["Export"] = "내보내기",
+            ["Export CSV / JSON"] = "CSV / JSON 내보내기",
+            ["{0} files written to {1}"] = "{0}개 파일 저장: {1}",
+        };
+
+        public static string T(string en)
+        {
+            if (!Korean || en == null) return en;
+            return Ko.TryGetValue(en, out var k) ? k : en;
+        }
+
+        public static string F(string en, params object[] args) => string.Format(T(en), args);
+    }
+}
